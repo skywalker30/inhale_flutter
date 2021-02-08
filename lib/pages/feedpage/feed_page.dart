@@ -270,6 +270,25 @@ class FeedPageViewLoading extends StatelessWidget {
               ),
             ],
           ),
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                SizedBox(height: 24),
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

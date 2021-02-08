@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inhale/components/inhale-page-route.dart';
 import 'package:inhale/pages/calmdown/calm_down.dart';
 import 'package:inhale/pages/energize/energize.dart';
 import 'package:inhale/pages/feedpage/feed_page.dart';
@@ -19,12 +20,15 @@ class _AppTabBarState extends State<AppTabBar> {
   int _currentIndex = 0;
   int cIndex = 0;
 
+  PageController _pageController;
+
   _AppTabBarState(int currentIndex) {
     this.cIndex = currentIndex;
   }
 
   @override
   void initState() {
+    _pageController = PageController();
     setState(() {
       this._currentIndex = cIndex;
     });
@@ -70,35 +74,20 @@ class _AppTabBarState extends State<AppTabBar> {
       ],
       onTap: (int ind) {
         if (ind == 0) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => FeedPage()),
-            (route) => false,
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              InhalePageRoute(FeedPage()), (route) => false);
         } else if (ind == 1) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => PausePage()),
-            (route) => false,
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              InhalePageRoute(PausePage()), (route) => false);
         } else if (ind == 2) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => CalmDownPage()),
-            (route) => false,
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              InhalePageRoute(CalmDownPage()), (route) => false);
         } else if (ind == 3) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => SleepPage()),
-            (route) => false,
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              InhalePageRoute(SleepPage()), (route) => false);
         } else if (ind == 4) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => EnergizePage()),
-            (route) => false,
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              InhalePageRoute(EnergizePage()), (route) => false);
         }
       },
     );
