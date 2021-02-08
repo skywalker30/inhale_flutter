@@ -13,31 +13,31 @@
     "session": [
       {
         "name": "Calming Sounds",
-        "icon": "icon",
+        "icon": "icon_headphone.png",
         "photo": "calming_sounds.png",
         "media": ""
       },
       {
         "name": "Sweat Dreams",
-        "icon": "icon",
+        "icon": "icon_sleep.png",
         "photo": "sweet_dreams.png",
         "media": ""
       },
       {
-        "name": "Breathing Exercise",
-        "icon": "icon",
+        "name": "Breathing\nExercise",
+        "icon": "icon_breathe.png",
         "photo": "breathing_excercise.png",
         "media": ""
       },
       {
         "name": "Mindful Eating",
-        "icon": "icon",
+        "icon": "icon_luminous.png",
         "photo": "mindful_eating.png",
         "media": ""
       },
       {
         "name": "Basics",
-        "icon": "icon",
+        "icon": "icon_luminous.png",
         "photo": "basics_rise_and_shine.png",
         "media": ""
       }
@@ -45,36 +45,36 @@
   },
   "now": {
     "morning": {
-      "title": "Start your day",
+      "title": "Wake up",
       "session": [
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Wake Up",
+          "icon": "icon_luminous.png",
+          "photo": "wake_up.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Energy Boost",
+          "icon": "icon_luminous.png",
+          "photo": "energy_boost.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Rise and Shine",
+          "icon": "icon_headphone.png",
+          "photo": "basics_rise_and_shine.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Finding Focus",
+          "icon": "icon_luminous.png",
+          "photo": "finding_focus.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Take a Deep\nBreath",
+          "icon": "icon_breathe.png",
+          "photo": "take_a_deep_breath.png",
           "media": ""
         }
       ]
@@ -83,33 +83,33 @@
       "title": "Afternoon Break",
       "session": [
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Take a Deep Breath",
+          "icon": "icon_breathe.png",
+          "photo": "take_a_deep_breath.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Stress Release",
+          "icon": "icon_breathe.png",
+          "photo": "stress_release.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Creative Thinking",
+          "icon": "icon_luminous.png",
+          "photo": "creative_thinking.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Driving Home",
+          "icon": "icon_luminous.png",
+          "photo": "driving_home.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Walking in the City",
+          "icon": "icon_headphone.png",
+          "photo": "walking_in_the_city.png",
           "media": ""
         }
       ]
@@ -118,33 +118,33 @@
       "title": "Winding Dawn",
       "session": [
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Evening Gratitude",
+          "icon": "icon_luminous.png",
+          "photo": "evening_gratitude.png",
+          "media": ""
+        },
+        {
+          "name": "Embracing the Sunset",
+          "icon": "icon_luminous.png",
+          "photo": "embracing_sunset.png",
+          "media": ""
+        },
+        {
+          "name": "Appreciate the Day",
+          "icon": "icon_luminous.png",
+          "photo": "appreciate_the_day.png",
           "media": ""
         },
         {
           "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "icon": "icon_headphone.png",
+          "photo": "calming_sounds.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
-          "media": ""
-        },
-        {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
-          "media": ""
-        },
-        {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Take a Deep Breath",
+          "icon": "icon_breathe.png",
+          "photo": "take_a_deep_breath.png",
           "media": ""
         }
       ]
@@ -153,33 +153,33 @@
       "title": "Sleep Tight",
       "session": [
         {
-          "name": "Calming Sounds",
+          "name": "Softly back to Sleep",
           "icon": "icon",
           "photo": "photo",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Sweet Dreams",
+          "icon": "icon_sleep.png",
+          "photo": "sweet_dreams.png",
+          "media": ""
+        },
+        {
+          "name": "Into the Stars",
+          "icon": "icon_sleep.png",
+          "photo": "into_the_stars.png",
           "media": ""
         },
         {
           "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "icon": "icon_headphone.png",
+          "photo": "calming_sounds.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
-          "media": ""
-        },
-        {
-          "name": "Calming Sounds",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Take a Deep Breath",
+          "icon": "icon_breathe.png",
+          "photo": "take_a_deep_breath.png",
           "media": ""
         }
       ]
