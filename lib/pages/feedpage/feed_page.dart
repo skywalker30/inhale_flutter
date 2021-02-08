@@ -148,69 +148,11 @@ class FeedPageView extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: homeFeed.recent.session.length,
               itemBuilder: (BuildContext context, int index) => Card(
-                child: Center(child: Image.asset('assets/calming_sounds.png')),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Start your day",
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          SizedBox(
-            height: 123.0,
-            child: ListView.builder(
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) => Card(
-                child: Center(child: Image.asset('assets/calming_sounds.png')),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Start your day",
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          SizedBox(
-            height: 123.0,
-            child: ListView.builder(
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) => Card(
-                child: Center(child: Image.asset('assets/calming_sounds.png')),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Start your day",
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          SizedBox(
-            height: 123.0,
-            child: ListView.builder(
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) => Card(
-                child: Center(child: Image.asset('assets/calming_sounds.png')),
+                child: Center(
+                    child: Image.asset(
+                        'assets/' + homeFeed.recent.session[index].photo)),
               ),
             ),
           ),

@@ -4,8 +4,8 @@
       {
         "name": "Calming Sounds",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "featured.png",
+        "media": ""
       }
     ]
   },
@@ -14,32 +14,32 @@
       {
         "name": "Calming Sounds",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "calming_sounds.png",
+        "media": ""
       },
       {
-        "name": "Calming Sounds",
+        "name": "Sweat Dreams",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "sweet_dreams.png",
+        "media": ""
       },
       {
-        "name": "Calming Sounds",
+        "name": "Breathing Exercise",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "breathing_excercise.png",
+        "media": ""
       },
       {
-        "name": "Calming Sounds",
+        "name": "Mindful Eating",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "mindful_eating.png",
+        "media": ""
       },
       {
-        "name": "Calming Sounds",
+        "name": "Basics",
         "icon": "icon",
-        "photo": "photo",
-        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        "photo": "basics_rise_and_shine.png",
+        "media": ""
       }
     ]
   },
@@ -51,31 +51,31 @@
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         }
       ]
     },
@@ -86,31 +86,31 @@
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         }
       ]
     },
@@ -121,31 +121,31 @@
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         }
       ]
     },
@@ -156,31 +156,31 @@
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         },
         {
           "name": "Calming Sounds",
           "icon": "icon",
           "photo": "photo",
-          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+          "media": ""
         }
       ]
     }
