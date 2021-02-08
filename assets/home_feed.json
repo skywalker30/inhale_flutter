@@ -1,0 +1,188 @@
+{
+  "featured": {
+    "session": [
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      }
+    ]
+  },
+  "recent": {
+    "session": [
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      },
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      },
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      },
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      },
+      {
+        "name": "Calming Sounds",
+        "icon": "icon",
+        "photo": "photo",
+        "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+      }
+    ]
+  },
+  "now": {
+    "morning": {
+      "title": "Start your day",
+      "session": [
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        }
+      ]
+    },
+    "afternoon": {
+      "title": "Afternoon Break",
+      "session": [
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        }
+      ]
+    },
+    "evening": {
+      "title": "Winding Dawn",
+      "session": [
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        }
+      ]
+    },
+    "night": {
+      "title": "Sleep Tight",
+      "session": [
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        },
+        {
+          "name": "Calming Sounds",
+          "icon": "icon",
+          "photo": "photo",
+          "media": "https://jsonformatter.org/img/tom-cruise.jpg"
+        }
+      ]
+    }
+  }
+}
