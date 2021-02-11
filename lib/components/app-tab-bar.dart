@@ -40,6 +40,13 @@ class _AppTabBarState extends State<AppTabBar> {
     return CupertinoTabBar(
       backgroundColor: Colors.white,
       currentIndex: this._currentIndex,
+      border: Border(
+        top: BorderSide(
+          color: Colors.white,
+          width: 0.0, // One physical pixel.
+          style: BorderStyle.solid,
+        ),
+      ),
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Image.asset('assets/Home.png'),

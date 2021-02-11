@@ -16,11 +16,13 @@ class HomeFeedBloc {
   HomeFeedBloc() {
     _homeFeedController = StreamController<ApiResponse<HomeFeed>>();
     _homeFeedRepository = HomeFeedRepository();
-    getHomeFeed();
+    getHomeFeed(false);
   }
 
-  getHomeFeed() async {
-    homeSink.add(ApiResponse.loading('Fetching me'));
+  getHomeFeed(bool withRefresh) async {
+    withRefresh
+        ? homeSink.add(ApiResponse.loadingrefresh('Loading'))
+        : homeSink.add(ApiResponse.loading('Loading'));
     try {
       HomeFeed homeFeed = await _homeFeedRepository.getHomeFeed();
       homeSink.add(ApiResponse.completed(homeFeed));

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inhale/bloc/home_feed_bloc.dart';
@@ -21,29 +23,58 @@ class _FeedPageState extends State<FeedPage> {
   @override
   void initState() {
     super.initState();
+
     _bloc = HomeFeedBloc();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Good Morning, John",
-          style: TextStyle(color: Colors.black),
-          textAlign: TextAlign.center,
-        ),
-      ),
+          backgroundColor: Colors.white,
+          brightness: Brightness.light,
+          elevation: 0,
+          title: StreamBuilder(
+              stream: Stream.periodic(
+                  Duration(seconds: 5), (data) => DateTime.now()),
+              builder: (context, snapshot) {
+                return Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
+                        ? "Good Morning, John"
+                        : (DateTime.now().hour >= 12 &&
+                                DateTime.now().hour < 17)
+                            ? "Good Afternoon, John"
+                            : (DateTime.now().hour >= 17 &&
+                                    DateTime.now().hour < 21)
+                                ? "Good Evening, John"
+                                : (DateTime.now().hour >= 21 ||
+                                        DateTime.now().hour < 5)
+                                    ? "Good Night, John"
+                                    : "Good Morning, John",
+                    style: TextStyle(color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              })),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.getHomeFeed(),
+        onRefresh: () => _bloc.getHomeFeed(true),
         child: StreamBuilder<ApiResponse<HomeFeed>>(
           stream: _bloc.homeStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               switch (snapshot.data.status) {
                 case Status.LOADING:
-                  return FeedPageViewLoading();
+                  return FeedPageViewLoading(
+                    refresh: false,
+                  );
+                  break;
+                case Status.LOADINGREFRESH:
+                  return FeedPageViewLoading(
+                    refresh: true,
+                  );
                   break;
                 case Status.COMPLETED:
                   return FeedPageView(
@@ -53,7 +84,7 @@ class _FeedPageState extends State<FeedPage> {
                 case Status.ERROR:
                   return FeedPageViewError(
                     errorMessage: snapshot.data.message,
-                    onRetryPressed: () => _bloc.getHomeFeed(),
+                    onRetryPressed: () => _bloc.getHomeFeed(false),
                   );
                   break;
               }
@@ -205,54 +236,150 @@ class FeedPageView extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-              child: Text(
-                homeFeed.now.morning.title,
-                style: TextStyle(color: Colors.black, fontSize: 14),
-                textAlign: TextAlign.left,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 123.0,
-            child: ListView.builder(
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: homeFeed.now.morning.session.length,
-              itemBuilder: (BuildContext context, int index) => Container(
-                  padding: EdgeInsets.all(5),
-                  child: Stack(
-                    children: [
-                      Image.asset('assets/' +
-                          homeFeed.now.morning.session[index].photo),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            homeFeed.now.morning.session[index].name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Image.asset('assets/' +
-                              homeFeed.now.morning.session[index].icon),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-          ),
+          StreamBuilder(
+            stream:
+                Stream.periodic(Duration(seconds: 5), (data) => DateTime.now()),
+            builder: (context, snapshot) {
+              return Wrap(children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Text(
+                      (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
+                          ? homeFeed.now.morning.title
+                          : (DateTime.now().hour >= 12 &&
+                                  DateTime.now().hour < 17)
+                              ? homeFeed.now.afternoon.title
+                              : (DateTime.now().hour >= 17 &&
+                                      DateTime.now().hour < 21)
+                                  ? homeFeed.now.evening.title
+                                  : (DateTime.now().hour >= 21 ||
+                                          DateTime.now().hour < 5)
+                                      ? homeFeed.now.night.title
+                                      : homeFeed.now.morning.title,
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 123.0,
+                  child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: homeFeed.now.morning.session.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          Container(
+                              padding: EdgeInsets.all(5),
+                              child: Stack(
+                                children: [
+                                  (DateTime.now().hour >= 5 &&
+                                          DateTime.now().hour < 12)
+                                      ? Image.asset('assets/' +
+                                          homeFeed
+                                              .now.morning.session[index].photo)
+                                      : (DateTime.now().hour >= 12 &&
+                                              DateTime.now().hour < 17)
+                                          ? Image.asset('assets/' +
+                                              homeFeed.now.afternoon
+                                                  .session[index].photo)
+                                          : (DateTime.now().hour >= 17 &&
+                                                  DateTime.now().hour < 21)
+                                              ? Image.asset('assets/' +
+                                                  homeFeed.now.evening
+                                                      .session[index].photo)
+                                              : (DateTime.now().hour >= 21 ||
+                                                      DateTime.now().hour < 5)
+                                                  ? Image.asset('assets/' +
+                                                      homeFeed.now.night
+                                                          .session[index].photo)
+                                                  : Image.asset('assets/' +
+                                                      homeFeed
+                                                          .now
+                                                          .morning
+                                                          .session[index]
+                                                          .photo),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        (DateTime.now().hour >= 5 &&
+                                                DateTime.now().hour < 12)
+                                            ? homeFeed
+                                                .now.morning.session[index].name
+                                            : (DateTime.now().hour >= 12 &&
+                                                    DateTime.now().hour < 17)
+                                                ? homeFeed.now.afternoon
+                                                    .session[index].name
+                                                : (DateTime.now().hour >= 17 &&
+                                                        DateTime.now().hour <
+                                                            21)
+                                                    ? homeFeed.now.evening
+                                                        .session[index].name
+                                                    : (DateTime.now().hour >=
+                                                                21 ||
+                                                            DateTime.now()
+                                                                    .hour <
+                                                                5)
+                                                        ? homeFeed.now.night
+                                                            .session[index].name
+                                                        : homeFeed
+                                                            .now
+                                                            .morning
+                                                            .session[index]
+                                                            .name,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: (DateTime.now().hour >= 5 &&
+                                              DateTime.now().hour < 12)
+                                          ? Image.asset('assets/' +
+                                              homeFeed.now.morning
+                                                  .session[index].icon)
+                                          : (DateTime.now().hour >= 12 &&
+                                                  DateTime.now().hour < 17)
+                                              ? Image.asset('assets/' +
+                                                  homeFeed.now.afternoon
+                                                      .session[index].icon)
+                                              : (DateTime.now().hour >= 17 ||
+                                                      DateTime.now().hour < 21)
+                                                  ? Image.asset('assets/' +
+                                                      homeFeed.now.evening
+                                                          .session[index].icon)
+                                                  : (DateTime.now().hour >=
+                                                              21 ||
+                                                          DateTime.now().hour <
+                                                              5)
+                                                      ? Image.asset('assets/' +
+                                                          homeFeed
+                                                              .now
+                                                              .night
+                                                              .session[index]
+                                                              .icon)
+                                                      : Image.asset('assets/' +
+                                                          homeFeed
+                                                              .now
+                                                              .morning
+                                                              .session[index]
+                                                              .icon),
+                                    ),
+                                  ),
+                                ],
+                              ))),
+                ),
+              ]);
+            },
+          )
         ],
       ),
     );
@@ -260,6 +387,8 @@ class FeedPageView extends StatelessWidget {
 }
 
 class FeedPageViewLoading extends StatelessWidget {
+  final bool refresh;
+  FeedPageViewLoading({this.refresh});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -294,23 +423,26 @@ class FeedPageViewLoading extends StatelessWidget {
               ),
             ],
           ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
+          Visibility(
+            visible: !this.refresh,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
                   ),
-                ),
-                SizedBox(height: 24),
-                CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
-                ),
-              ],
+                  SizedBox(height: 24),
+                  CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

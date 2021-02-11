@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inhale/bloc/home_feed_bloc.dart';
 import 'package:inhale/components/app-tab-bar.dart';
@@ -35,13 +36,16 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
+        brightness: Brightness.light,
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
         title: Text(
-          "Under the sea",
+          "",
           style: TextStyle(color: Colors.black),
           textAlign: TextAlign.center,
         ),
@@ -52,7 +56,11 @@ class _PlayerPageState extends State<PlayerPage> {
           if (snapshot.hasData) {
             switch (snapshot.data.status) {
               case Status.LOADING:
-                return PlayerPageViewLoading();
+              case Status.LOADINGREFRESH:
+                return PlayerPageView(
+                  homeFeed: snapshot.data.data,
+                  assetsAudioPlayer: _assetsAudioPlayer,
+                );
                 break;
               case Status.COMPLETED:
                 return PlayerPageView(
@@ -63,7 +71,7 @@ class _PlayerPageState extends State<PlayerPage> {
               case Status.ERROR:
                 return PlayerPageViewError(
                   errorMessage: snapshot.data.message,
-                  onRetryPressed: () => _bloc.getHomeFeed(),
+                  onRetryPressed: () => _bloc.getHomeFeed(false),
                 );
                 break;
             }
@@ -87,71 +95,91 @@ class PlayerPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Flexible(
-          flex: 4,
-          child: SizedBox.expand(
-            child: Container(
-              child: Stack(children: [
-                Align(
-                    alignment: Alignment.center,
-                    child: Image.asset('assets/under_the_sea.png')),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: Text(
-                        "Under the sea",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    )),
-              ]),
-            ),
+        SizedBox(
+          height: 360,
+          child: Container(
+            child: Stack(children: [
+              Align(
+                  alignment: Alignment.center,
+                  child: Image.asset('assets/under_the_sea.png')),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 60),
+                    child: Text(
+                      "Under the sea",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  )),
+            ]),
           ),
         ),
-        Flexible(
-          flex: 2,
-          child: SizedBox.expand(
-            child: Container(child: assetsAudioPlayer
-                .builderRealtimePlayingInfos(builder: (context, infos) {
-              return Slider(
-                min: 0,
-                max: infos == null ? 1000 : infos.duration.inSeconds.toDouble(),
-                value: assetsAudioPlayer.currentPosition.value.inSeconds
-                    .toDouble(),
-                onChanged: (newValue) => {
-                  assetsAudioPlayer
-                      .seek(Duration(minutes: 0, seconds: newValue.toInt()))
-                },
-              );
-            })),
-          ),
-        ),
-        Flexible(
-          flex: 2,
-          child: SizedBox.expand(
-            child: Container(
+        SizedBox(
+          height: 50,
+          child: Container(
+              padding: EdgeInsets.only(bottom: 0),
+              child: Padding(
+                padding: const EdgeInsets.all(0),
                 child: Align(
-                    child: GestureDetector(
-              onTap: () => {
-                if (assetsAudioPlayer.isPlaying.value)
-                  {assetsAudioPlayer.pause()}
-                else if (assetsAudioPlayer.playerState.value ==
-                    PlayerState.pause)
-                  {assetsAudioPlayer.play()}
-                else
-                  {assetsAudioPlayer.open(Audio("assets/under_the_sea.mp3"))}
-              },
-              child: assetsAudioPlayer.builderIsPlaying(
-                  builder: (context, isPlaying) {
-                return isPlaying
-                    ? Image.asset('assets/pause.png')
-                    : Image.asset('assets/play.png');
-              }),
-            ))),
-          ),
+                  alignment: Alignment.bottomCenter,
+                  child: assetsAudioPlayer.builderRealtimePlayingInfos(
+                      builder: (context, infos) {
+                    return Slider(
+                      min: 0,
+                      max: infos == null
+                          ? 1000
+                          : infos.duration.inSeconds.toDouble(),
+                      value: assetsAudioPlayer.currentPosition.value.inSeconds
+                          .toDouble(),
+                      onChanged: (newValue) => {
+                        if (assetsAudioPlayer.isPlaying.value == true)
+                          {
+                            assetsAudioPlayer.seek(
+                                Duration(minutes: 0, seconds: newValue.toInt()))
+                          }
+                      },
+                    );
+                  }),
+                ),
+              )),
+        ),
+        SizedBox(
+          height: 100,
+          child: Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GestureDetector(
+                    onTap: () => {
+                      if (assetsAudioPlayer.isPlaying.value)
+                        {assetsAudioPlayer.pause()}
+                      else if (assetsAudioPlayer.playerState.value ==
+                          PlayerState.pause)
+                        {assetsAudioPlayer.play()}
+                      else
+                        {
+                          assetsAudioPlayer
+                              .open(Audio("assets/under_the_sea.mp3"))
+                        }
+                    },
+                    child: assetsAudioPlayer.builderIsPlaying(
+                        builder: (context, isPlaying) {
+                      return isPlaying
+                          ? Image.asset(
+                              'assets/pause.png',
+                              width: 78,
+                              height: 78,
+                            )
+                          : Image.asset(
+                              'assets/play.png',
+                              width: 78,
+                              height: 78,
+                            );
+                    }),
+                  ))),
         ),
       ],
     );

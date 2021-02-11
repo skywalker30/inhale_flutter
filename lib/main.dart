@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:inhale/pages/feedpage/feed_page.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // status bar color
+  ));
+
   runApp(MyApp());
 }
 
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SafeArea(child: FeedPage(title: 'Inhale')),
+      home: FeedPage(title: 'Inhale'),
     );
   }
 }

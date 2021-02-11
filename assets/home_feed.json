@@ -12,13 +12,13 @@
   "recent": {
     "session": [
       {
-        "name": "Calming Sounds",
+        "name": "Calming\nSounds",
         "icon": "icon_headphone.png",
         "photo": "calming_sounds.png",
         "media": ""
       },
       {
-        "name": "Sweat Dreams",
+        "name": "Sweat\nDreams",
         "icon": "icon_sleep.png",
         "photo": "sweet_dreams.png",
         "media": ""
@@ -30,7 +30,7 @@
         "media": ""
       },
       {
-        "name": "Mindful Eating",
+        "name": "Mindful\nEating",
         "icon": "icon_luminous.png",
         "photo": "mindful_eating.png",
         "media": ""
@@ -66,7 +66,7 @@
           "media": ""
         },
         {
-          "name": "Finding Focus",
+          "name": "Finding\nFocus",
           "icon": "icon_luminous.png",
           "photo": "finding_focus.png",
           "media": ""
@@ -83,31 +83,31 @@
       "title": "Afternoon Break",
       "session": [
         {
-          "name": "Take a Deep Breath",
+          "name": "Take a Deep\nBreath",
           "icon": "icon_breathe.png",
           "photo": "take_a_deep_breath.png",
           "media": ""
         },
         {
-          "name": "Stress Release",
+          "name": "Stress\nRelease",
           "icon": "icon_breathe.png",
           "photo": "stress_release.png",
           "media": ""
         },
         {
-          "name": "Creative Thinking",
+          "name": "Creative\nThinking",
           "icon": "icon_luminous.png",
           "photo": "creative_thinking.png",
           "media": ""
         },
         {
-          "name": "Driving Home",
+          "name": "Driving\nHome",
           "icon": "icon_luminous.png",
           "photo": "driving_home.png",
           "media": ""
         },
         {
-          "name": "Walking in the City",
+          "name": "Walking\nin the City",
           "icon": "icon_headphone.png",
           "photo": "walking_in_the_city.png",
           "media": ""
@@ -118,31 +118,31 @@
       "title": "Winding Dawn",
       "session": [
         {
-          "name": "Evening Gratitude",
+          "name": "Evening\nGratitude",
           "icon": "icon_luminous.png",
           "photo": "evening_gratitude.png",
           "media": ""
         },
         {
-          "name": "Embracing the Sunset",
+          "name": "Embracing\nthe Sunset",
           "icon": "icon_luminous.png",
           "photo": "embracing_sunset.png",
           "media": ""
         },
         {
-          "name": "Appreciate the Day",
+          "name": "Appreciate\nthe Day",
           "icon": "icon_luminous.png",
           "photo": "appreciate_the_day.png",
           "media": ""
         },
         {
-          "name": "Calming Sounds",
+          "name": "Calming\nSounds",
           "icon": "icon_headphone.png",
           "photo": "calming_sounds.png",
           "media": ""
         },
         {
-          "name": "Take a Deep Breath",
+          "name": "Take a Deep\nBreath",
           "icon": "icon_breathe.png",
           "photo": "take_a_deep_breath.png",
           "media": ""
@@ -153,13 +153,13 @@
       "title": "Sleep Tight",
       "session": [
         {
-          "name": "Softly back to Sleep",
-          "icon": "icon",
-          "photo": "photo",
+          "name": "Softly back\nto Sleep",
+          "icon": "icon_sleep.png",
+          "photo": "softly_back_to_sleep.png",
           "media": ""
         },
         {
-          "name": "Sweet Dreams",
+          "name": "Sweet\nDreams",
           "icon": "icon_sleep.png",
           "photo": "sweet_dreams.png",
           "media": ""
@@ -171,13 +171,13 @@
           "media": ""
         },
         {
-          "name": "Calming Sounds",
+          "name": "Calming\nSounds",
           "icon": "icon_headphone.png",
           "photo": "calming_sounds.png",
           "media": ""
         },
         {
-          "name": "Take a Deep Breath",
+          "name": "Take a Deep\nBreath",
           "icon": "icon_breathe.png",
           "photo": "take_a_deep_breath.png",
           "media": ""
