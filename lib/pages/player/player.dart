@@ -20,6 +20,8 @@ class PlayerPage extends StatefulWidget {
 
 class _PlayerPageState extends State<PlayerPage> {
   bool playing = false;
+  bool seekCompleted = true;
+
   Duration _duration = new Duration();
   Duration _position = new Duration();
   AudioPlayer audioPlayer;
@@ -28,6 +30,7 @@ class _PlayerPageState extends State<PlayerPage> {
   StreamSubscription _positionSubscription;
   StreamSubscription _playerCompleteSubscription;
   StreamSubscription _playerErrorSubscription;
+  StreamSubscription _playerSeekSubscription;
   PlayerState _playerState = PlayerState.stopped;
   PlayingRouteState _playingRouteState = PlayingRouteState.speakers;
 
@@ -47,22 +50,22 @@ class _PlayerPageState extends State<PlayerPage> {
     _durationSubscription = audioPlayer.onDurationChanged.listen((duration) {
       setState(() => _duration = duration);
 
-      if (Theme.of(context).platform == TargetPlatform.iOS) {
-        // (Optional) listen for notification updates in the background
-        audioPlayer.startHeadlessService();
+      // if (Theme.of(context).platform == TargetPlatform.iOS) {
+      //   // (Optional) listen for notification updates in the background
+      //   audioPlayer.startHeadlessService();
 
-        // set at least title to see the notification bar on ios.
-        audioPlayer.setNotification(
-          title: 'Under the sea',
-          artist: 'Inhale',
-          albumTitle: 'Inhale',
-          imageUrl: 'Inhale',
-          duration: duration,
-          elapsedTime: Duration(seconds: 0),
-          hasNextTrack: false,
-          hasPreviousTrack: false,
-        );
-      }
+      //   // set at least title to see the notification bar on ios.
+      //   audioPlayer.setNotification(
+      //     title: 'Under the sea',
+      //     artist: 'Inhale',
+      //     albumTitle: 'Inhale',
+      //     imageUrl: 'Inhale',
+      //     duration: duration,
+      //     elapsedTime: Duration(seconds: 0),
+      //     hasNextTrack: false,
+      //     hasPreviousTrack: false,
+      //   );
+      // }
     });
 
     _positionSubscription =
@@ -77,6 +80,10 @@ class _PlayerPageState extends State<PlayerPage> {
         _duration = Duration(seconds: 0);
         _position = Duration(seconds: 0);
       });
+    });
+
+    _playerSeekSubscription = audioPlayer.onSeekComplete.listen((event) {
+      seekCompleted = true;
     });
 
     _playerCompleteSubscription =
@@ -94,6 +101,7 @@ class _PlayerPageState extends State<PlayerPage> {
     _positionSubscription?.cancel();
     _playerCompleteSubscription?.cancel();
     _playerErrorSubscription?.cancel();
+    _playerSeekSubscription?.cancel();
     audioPlayer.stop();
     audioPlayer.dispose();
 
@@ -154,16 +162,17 @@ class _PlayerPageState extends State<PlayerPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Slider(
+                    min: 0,
+                    max: _duration.inSeconds.toDouble(),
                     onChanged: (v) {
-                      final position = v * _duration.inMilliseconds;
-                      audioPlayer
-                          .seek(Duration(milliseconds: position.round()));
+                      // final position = v * _duration.inMilliseconds;
+                      if (seekCompleted) {
+                        seekCompleted = false;
+                        audioPlayer.seek(Duration(seconds: v.toInt()));
+                      }
                     },
-                    value: (_position != null &&
-                            _duration != null &&
-                            _position.inMilliseconds > 0 &&
-                            _position.inMilliseconds < _duration.inMilliseconds)
-                        ? _position.inMilliseconds / _duration.inMilliseconds
+                    value: (_position != null)
+                        ? _position.inSeconds.toDouble()
                         : 0.0,
                   ),
                 ),
