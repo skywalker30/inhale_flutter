@@ -191,8 +191,8 @@ class FeedPageView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
-                    ? Image.asset(
-                        'assets/' + homeFeed.now.morning.session[index].icon)
+                    ? Image.asset('assets/' +
+                        homeFeed.now.morning.session[index - 1].icon)
                     : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
                         ? Image.asset('assets/' +
                             homeFeed.now.afternoon.session[index - 1].icon)
