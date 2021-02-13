@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inhale/components/app-tab-bar.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+enum PlayerState { stopped, playing, paused }
+enum PlayingRouteState { speakers, earpiece }
 
 class PlayerPage extends StatefulWidget {
   PlayerPage({Key key, this.title}) : super(key: key);
@@ -19,6 +24,15 @@ class _PlayerPageState extends State<PlayerPage> {
   Duration _position = new Duration();
   AudioPlayer audioPlayer;
   AudioCache audioCache;
+  StreamSubscription _durationSubscription;
+  StreamSubscription _positionSubscription;
+  StreamSubscription _playerCompleteSubscription;
+  StreamSubscription _playerErrorSubscription;
+  PlayerState _playerState = PlayerState.stopped;
+  PlayingRouteState _playingRouteState = PlayingRouteState.speakers;
+
+  get _isPlaying => _playerState == PlayerState.playing;
+  get _isPaused => _playerState == PlayerState.paused;
 
   @override
   void initState() {
@@ -30,27 +44,80 @@ class _PlayerPageState extends State<PlayerPage> {
     audioPlayer = new AudioPlayer();
     audioCache = new AudioCache(fixedPlayer: audioPlayer);
 
-    audioPlayer.durationHandler = (d) => setState(() {
-          _duration = d;
-        });
+    _durationSubscription = audioPlayer.onDurationChanged.listen((duration) {
+      setState(() => _duration = duration);
 
-    audioPlayer.positionHandler = (p) => setState(() {
-          _position = p;
-        });
+      if (Theme.of(context).platform == TargetPlatform.iOS) {
+        // (Optional) listen for notification updates in the background
+        audioPlayer.startHeadlessService();
 
-    audioPlayer.completionHandler = () => setState(() {
-          playing = false;
-          _position = Duration(seconds: 0);
-        });
+        // set at least title to see the notification bar on ios.
+        audioPlayer.setNotification(
+          title: 'Under the sea',
+          artist: 'Inhale',
+          albumTitle: 'Inhale',
+          imageUrl: 'Inhale',
+          duration: duration,
+          elapsedTime: Duration(seconds: 0),
+          hasNextTrack: false,
+          hasPreviousTrack: false,
+        );
+      }
+    });
+
+    _positionSubscription =
+        audioPlayer.onAudioPositionChanged.listen((p) => setState(() {
+              _position = p;
+            }));
+
+    _playerErrorSubscription = audioPlayer.onPlayerError.listen((msg) {
+      print('audioPlayer error : $msg');
+      setState(() {
+        _playerState = PlayerState.stopped;
+        _duration = Duration(seconds: 0);
+        _position = Duration(seconds: 0);
+      });
+    });
+
+    _playerCompleteSubscription =
+        audioPlayer.onPlayerCompletion.listen((event) {
+      setState(() {
+        _playerState = PlayerState.stopped;
+        _position = null;
+      });
+    });
   }
 
   @override
   void dispose() {
-    print("dispose");
+    _durationSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _playerCompleteSubscription?.cancel();
+    _playerErrorSubscription?.cancel();
     audioPlayer.stop();
     audioPlayer.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _play() async {
+    final playPosition = (_position != null &&
+            _duration != null &&
+            _position.inMilliseconds > 0 &&
+            _position.inMilliseconds < _duration.inMilliseconds)
+        ? _position
+        : null;
+
+    AudioPlayer player = await audioCache.play("under_the_sea.mp3");
+    player.seek(playPosition ?? Duration(seconds: 0));
+
+    setState(() => _playerState = PlayerState.playing);
+  }
+
+  Future<int> _pause() async {
+    final result = await audioPlayer.pause();
+    if (result == 1) setState(() => _playerState = PlayerState.paused);
+    return result;
   }
 
   Widget body() {
@@ -87,20 +154,17 @@ class _PlayerPageState extends State<PlayerPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Slider(
-                    min: 0,
-                    max: _duration.inSeconds.toDouble(),
-                    value: _position.inSeconds.toDouble(),
-                    onChanged: (value) => {
-                      if (playing)
-                        {
-                          setState(() {
-                            Duration newDuration =
-                                Duration(seconds: value.toInt());
-                            audioPlayer.seek(newDuration);
-                            value = value;
-                          })
-                        }
+                    onChanged: (v) {
+                      final position = v * _duration.inMilliseconds;
+                      audioPlayer
+                          .seek(Duration(milliseconds: position.round()));
                     },
+                    value: (_position != null &&
+                            _duration != null &&
+                            _position.inMilliseconds > 0 &&
+                            _position.inMilliseconds < _duration.inMilliseconds)
+                        ? _position.inMilliseconds / _duration.inMilliseconds
+                        : 0.0,
                   ),
                 ),
               ),
@@ -112,15 +176,8 @@ class _PlayerPageState extends State<PlayerPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
-                      onTap: () => {
-                            setState(() {
-                              (playing)
-                                  ? audioPlayer.pause()
-                                  : audioCache.play("under_the_sea.mp3");
-                              playing = !playing;
-                            }),
-                          },
-                      child: (playing)
+                      onTap: () => {(_isPlaying) ? _pause() : _play()},
+                      child: (_isPlaying)
                           ? Image.asset(
                               'assets/pause.png',
                               width: 78,

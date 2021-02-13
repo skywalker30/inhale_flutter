@@ -104,6 +104,115 @@ class FeedPageView extends StatelessWidget {
   final HomeFeed homeFeed;
   const FeedPageView({this.homeFeed});
 
+  Widget recentElement(int index, int size) {
+    if (index == 0 || index == size - 1) {
+      return SizedBox(
+        width: 5,
+      );
+    }
+
+    return Container(
+        padding: EdgeInsets.all(5),
+        child: Stack(
+          children: [
+            Image.asset('assets/' + homeFeed.recent.session[index - 1].photo),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  homeFeed.recent.session[index - 1].name,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(
+                    'assets/' + homeFeed.recent.session[index - 1].icon),
+              ),
+            ),
+          ],
+        ));
+  }
+
+  Widget nowElement(int index, int size) {
+    if (index == 0 || index == size - 1) {
+      return SizedBox(
+        width: 5,
+      );
+    }
+
+    return Container(
+        padding: EdgeInsets.all(5),
+        child: Stack(
+          children: [
+            (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
+                ? Image.asset(
+                    'assets/' + homeFeed.now.morning.session[index - 1].photo)
+                : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
+                    ? Image.asset('assets/' +
+                        homeFeed.now.afternoon.session[index - 1].photo)
+                    : (DateTime.now().hour >= 17 && DateTime.now().hour < 21)
+                        ? Image.asset('assets/' +
+                            homeFeed.now.evening.session[index - 1].photo)
+                        : (DateTime.now().hour >= 21 || DateTime.now().hour < 5)
+                            ? Image.asset('assets/' +
+                                homeFeed.now.night.session[index - 1].photo)
+                            : Image.asset('assets/' +
+                                homeFeed.now.morning.session[index - 1].photo),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
+                      ? homeFeed.now.morning.session[index - 1].name
+                      : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
+                          ? homeFeed.now.afternoon.session[index - 1].name
+                          : (DateTime.now().hour >= 17 &&
+                                  DateTime.now().hour < 21)
+                              ? homeFeed.now.evening.session[index - 1].name
+                              : (DateTime.now().hour >= 21 ||
+                                      DateTime.now().hour < 5)
+                                  ? homeFeed.now.night.session[index - 1].name
+                                  : homeFeed
+                                      .now.morning.session[index - 1].name,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
+                    ? Image.asset(
+                        'assets/' + homeFeed.now.morning.session[index].icon)
+                    : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
+                        ? Image.asset('assets/' +
+                            homeFeed.now.afternoon.session[index - 1].icon)
+                        : (DateTime.now().hour >= 17 ||
+                                DateTime.now().hour < 21)
+                            ? Image.asset('assets/' +
+                                homeFeed.now.evening.session[index - 1].icon)
+                            : (DateTime.now().hour >= 21 ||
+                                    DateTime.now().hour < 5)
+                                ? Image.asset('assets/' +
+                                    homeFeed.now.night.session[index - 1].icon)
+                                : Image.asset('assets/' +
+                                    homeFeed
+                                        .now.morning.session[index - 1].icon),
+              ),
+            ),
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -201,63 +310,48 @@ class FeedPageView extends StatelessWidget {
             child: SizedBox(
               height: 123.0,
               child: ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: homeFeed.recent.session.length,
-                itemBuilder: (BuildContext context, int index) => Container(
-                    padding: EdgeInsets.all(5),
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                            'assets/' + homeFeed.recent.session[index].photo),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              homeFeed.recent.session[index].name,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Image.asset('assets/' +
-                                homeFeed.recent.session[index].icon),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeFeed.recent.session.length + 2,
+                  itemBuilder: (BuildContext context, int index) =>
+                      recentElement(index, homeFeed.recent.session.length + 2)),
             ),
           ),
           StreamBuilder(
             stream:
                 Stream.periodic(Duration(seconds: 5), (data) => DateTime.now()),
             builder: (context, snapshot) {
+              String title = (DateTime.now().hour >= 5 &&
+                      DateTime.now().hour < 12)
+                  ? homeFeed.now.morning.title
+                  : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
+                      ? homeFeed.now.afternoon.title
+                      : (DateTime.now().hour >= 17 && DateTime.now().hour < 21)
+                          ? homeFeed.now.evening.title
+                          : (DateTime.now().hour >= 21 ||
+                                  DateTime.now().hour < 5)
+                              ? homeFeed.now.night.title
+                              : homeFeed.now.morning.title;
+
+              int sessionLength = (DateTime.now().hour >= 5 &&
+                      DateTime.now().hour < 12)
+                  ? homeFeed.now.morning.session.length
+                  : (DateTime.now().hour >= 12 && DateTime.now().hour < 17)
+                      ? homeFeed.now.afternoon.session.length
+                      : (DateTime.now().hour >= 17 && DateTime.now().hour < 21)
+                          ? homeFeed.now.evening.session.length
+                          : (DateTime.now().hour >= 21 ||
+                                  DateTime.now().hour < 5)
+                              ? homeFeed.now.night.session.length
+                              : homeFeed.now.morning.session.length;
               return Wrap(children: [
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child: Text(
-                      (DateTime.now().hour >= 5 && DateTime.now().hour < 12)
-                          ? homeFeed.now.morning.title
-                          : (DateTime.now().hour >= 12 &&
-                                  DateTime.now().hour < 17)
-                              ? homeFeed.now.afternoon.title
-                              : (DateTime.now().hour >= 17 &&
-                                      DateTime.now().hour < 21)
-                                  ? homeFeed.now.evening.title
-                                  : (DateTime.now().hour >= 21 ||
-                                          DateTime.now().hour < 5)
-                                      ? homeFeed.now.night.title
-                                      : homeFeed.now.morning.title,
+                      title,
                       style: TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.left,
                     ),
@@ -269,113 +363,9 @@ class FeedPageView extends StatelessWidget {
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: homeFeed.now.morning.session.length,
+                      itemCount: sessionLength + 2,
                       itemBuilder: (BuildContext context, int index) =>
-                          Container(
-                              padding: EdgeInsets.all(5),
-                              child: Stack(
-                                children: [
-                                  (DateTime.now().hour >= 5 &&
-                                          DateTime.now().hour < 12)
-                                      ? Image.asset('assets/' +
-                                          homeFeed
-                                              .now.morning.session[index].photo)
-                                      : (DateTime.now().hour >= 12 &&
-                                              DateTime.now().hour < 17)
-                                          ? Image.asset('assets/' +
-                                              homeFeed.now.afternoon
-                                                  .session[index].photo)
-                                          : (DateTime.now().hour >= 17 &&
-                                                  DateTime.now().hour < 21)
-                                              ? Image.asset('assets/' +
-                                                  homeFeed.now.evening
-                                                      .session[index].photo)
-                                              : (DateTime.now().hour >= 21 ||
-                                                      DateTime.now().hour < 5)
-                                                  ? Image.asset('assets/' +
-                                                      homeFeed.now.night
-                                                          .session[index].photo)
-                                                  : Image.asset('assets/' +
-                                                      homeFeed
-                                                          .now
-                                                          .morning
-                                                          .session[index]
-                                                          .photo),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Text(
-                                        (DateTime.now().hour >= 5 &&
-                                                DateTime.now().hour < 12)
-                                            ? homeFeed
-                                                .now.morning.session[index].name
-                                            : (DateTime.now().hour >= 12 &&
-                                                    DateTime.now().hour < 17)
-                                                ? homeFeed.now.afternoon
-                                                    .session[index].name
-                                                : (DateTime.now().hour >= 17 &&
-                                                        DateTime.now().hour <
-                                                            21)
-                                                    ? homeFeed.now.evening
-                                                        .session[index].name
-                                                    : (DateTime.now().hour >=
-                                                                21 ||
-                                                            DateTime.now()
-                                                                    .hour <
-                                                                5)
-                                                        ? homeFeed.now.night
-                                                            .session[index].name
-                                                        : homeFeed
-                                                            .now
-                                                            .morning
-                                                            .session[index]
-                                                            .name,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: (DateTime.now().hour >= 5 &&
-                                              DateTime.now().hour < 12)
-                                          ? Image.asset('assets/' +
-                                              homeFeed.now.morning
-                                                  .session[index].icon)
-                                          : (DateTime.now().hour >= 12 &&
-                                                  DateTime.now().hour < 17)
-                                              ? Image.asset('assets/' +
-                                                  homeFeed.now.afternoon
-                                                      .session[index].icon)
-                                              : (DateTime.now().hour >= 17 ||
-                                                      DateTime.now().hour < 21)
-                                                  ? Image.asset('assets/' +
-                                                      homeFeed.now.evening
-                                                          .session[index].icon)
-                                                  : (DateTime.now().hour >=
-                                                              21 ||
-                                                          DateTime.now().hour <
-                                                              5)
-                                                      ? Image.asset('assets/' +
-                                                          homeFeed
-                                                              .now
-                                                              .night
-                                                              .session[index]
-                                                              .icon)
-                                                      : Image.asset('assets/' +
-                                                          homeFeed
-                                                              .now
-                                                              .morning
-                                                              .session[index]
-                                                              .icon),
-                                    ),
-                                  ),
-                                ],
-                              ))),
+                          nowElement(index, sessionLength + 2)),
                 ),
               ]);
             },
