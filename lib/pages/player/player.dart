@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inhale/components/app-tab-bar.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'dart:io' show Platform;
 
 enum PlayerState { stopped, playing, paused }
 enum PlayingRouteState { speakers, earpiece }
@@ -166,9 +167,13 @@ class _PlayerPageState extends State<PlayerPage> {
                     max: _duration.inSeconds.toDouble(),
                     onChanged: (v) {
                       // final position = v * _duration.inMilliseconds;
-                      if (seekCompleted) {
-                        seekCompleted = false;
+                      if (Platform.isAndroid) {
                         audioPlayer.seek(Duration(seconds: v.toInt()));
+                      } else {
+                        if (seekCompleted) {
+                          seekCompleted = false;
+                          audioPlayer.seek(Duration(seconds: v.toInt()));
+                        }
                       }
                     },
                     value: (_position != null)
